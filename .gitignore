@@ -1,0 +1,11 @@
+# Node y dependencias
+node_modules
+package-lock.json
+
+# Compilados / builds
+dist
+*.log
+
+# Configuración de sistema
+.DS_Store
+Thumbs.db
