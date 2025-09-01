@@ -6,6 +6,9 @@ const resetBtn = document.getElementById('Reset');
 const pairs = document.getElementById('pairs');
 const moves = document.getElementById('moves');
 const time = document.getElementById('time');
+const winMessage = document.getElementById('winMessage');
+const playAgain = document.getElementById('playAgain');
+const exitGame = document.getElementById('exitGame');
 
 
 
@@ -164,6 +167,20 @@ function resetBoardAndCards() {
 
 
 resetBtn.addEventListener('click', resetBoardAndCards);
+exitGame.addEventListener('click', () => {winMessage.style.display = 'none';});
+playAgain.addEventListener('click', resetBoardAndCards);
+
+
+
+// MENSAJES
+
+// Mensaje completar parejas
+function showWinMessage() {
+    if(pairs.textContent === '6') {
+        winMessage.style.visibility = 'visible';
+    }}
+
+showWinMessage();
 
 
 cards.forEach(card => card.addEventListener('click', flipCard));
