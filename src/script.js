@@ -50,6 +50,7 @@ function checkForMatch() {
     isMatch ? disableCards() : unflipCards();
     if(isMatch){
         pairs.textContent = parseInt(pairs.textContent) + 1;
+        checkWin();
     }
 }
 
@@ -63,7 +64,7 @@ function disableCards() {
 }
 
 
-// Revoltear si no hay match -->
+// Dar la vuelta si no hay match -->
 
 function unflipCards() {
 lockBoard = true;
@@ -111,32 +112,8 @@ time.textContent = '0';
 
 
 // TIMER
-let seconds = 0;
-let timer; 
-
-function timerFunction() {
-    seconds++;
-    time.textContent = seconds;
-}
 
 
-
-// function startTimer() {
-//     setInterval(() => {
-//         time.textContent = parseInt(time.textContent) + 1;
-//     }, 1000);
-//     stopTimer();
-    
-// }
-
-// function stopTimer() {
-// if(pairs.textContent === '6') {
-//     clearInterval();
-//     time.textContent = '0';
-// }
-// }
-
-// cards.forEach(card => card.addEventListener('click', startTimer, {once: true}));
 
  
 // ---------- BOTONES ----------
@@ -149,6 +126,7 @@ function timerFunction() {
     pairs.textContent = '0';
     moves.textContent = '0';
     setTimeout(shuffle, 500);
+    cards.removeEventListener('click', flipCard);
     cards.forEach(card => card.addEventListener('click', flipCard));
  }
 
@@ -163,12 +141,14 @@ function resetBoardAndCards() {
     moves.textContent = '0';
     resetBoard();
     shuffle();
+    cards.removeEventListener('click', flipCard);
+    cards.forEach(card => card.addEventListener('click', flipCard));
 }
 
 
 resetBtn.addEventListener('click', resetBoardAndCards);
-exitGame.addEventListener('click', () => {winMessage.style.display = 'none';});
-playAgain.addEventListener('click', resetBoardAndCards);
+exitGame.addEventListener('click', () => {winMessage.style.visibility = 'hidden';});
+playAgain.addEventListener('click', rePlay);
 
 
 
@@ -176,11 +156,18 @@ playAgain.addEventListener('click', resetBoardAndCards);
 
 // Mensaje completar parejas
 function showWinMessage() {
+    winMessage.classList.add('show');
+};
+
+
+function checkWin() {
     if(pairs.textContent === '6') {
-        winMessage.style.visibility = 'visible';
+        showWinMessage();
     }}
 
-showWinMessage();
+function rePlay() {
+    resetBoardAndCards();
+}
 
 
 cards.forEach(card => card.addEventListener('click', flipCard));
